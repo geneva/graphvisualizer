@@ -120,6 +120,10 @@ export class GraphData <N extends CosmosInputNode, L extends CosmosInputLink> {
     return this._nodes[index]
   }
 
+  public getLinkByIndex (index: number): L | undefined {
+    return this._links[index]
+  }
+
   public getSortedIndexByInputIndex (index: number): number | undefined {
     return this.inputIndexToSortedIndexMap.get(index)
   }

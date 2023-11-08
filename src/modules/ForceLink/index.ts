@@ -44,6 +44,13 @@ export class ForceLink<N extends CosmosInputNode, L extends CosmosInputLink> ext
         const bias = degree / (degree + connectedDegree)
         let strength = 1 / Math.min(degree, connectedDegree)
         strength = Math.sqrt(strength)
+
+        // need boost by link
+        const link = data.getLinkByIndex(linkIndex)
+        // @ts-ignore
+        const boost = link && 'boost' in link && typeof link.boost === 'number' ? link.boost : 0;
+        strength += boost;
+
         linkBiasAndStrengthState[linkIndex * 4 + 0] = bias
         linkBiasAndStrengthState[linkIndex * 4 + 1] = strength
         linkDistanceState[linkIndex * 4] = this.store.getRandomFloat(0, 1)
